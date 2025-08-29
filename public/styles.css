@@ -1,0 +1,127 @@
+.blog-platform {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.blog-platform h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+#new-post-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+#new-post-btn:hover {
+    background-color: #0056b3;
+}
+
+#new-post-form {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#new-post-form h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+#post-title, #post-description {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#post-description {
+    height: 100px;
+    resize: vertical;
+    font-family: Arial, sans-serif;
+}
+
+#add-post-btn, #cancel-btn {
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#add-post-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+#add-post-btn:hover {
+    background-color: #218838;
+}
+
+#cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+#cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+#posts-list h3 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+#posts-container {
+    margin-top: 20px;
+}
+
+.post-item {
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s;
+}
+
+.post-item:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.post-item h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #007bff;
+    font-size: 1.2em;
+}
+
+.post-item p {
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.post-item small {
+    color: #888;
+    font-style: italic;
+}

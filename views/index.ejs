@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Platform</title>
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <div class="blog-platform">
+        <h1>Blog Platform</h1>
+        
+        <button id="new-post-btn">Create New Post</button>
+        
+        <div id="new-post-form" style="display: none;">
+            <h3>Create New Post</h3>
+            <input type="text" id="post-title" placeholder="Post Title" />
+            <textarea id="post-description" placeholder="Post Description"></textarea>
+            <button id="add-post-btn">Add</button>
+            <button id="cancel-btn">Cancel</button>
+        </div>
+        
+        <div id="posts-list">
+            <h3>Posts</h3>
+            <div id="posts-container"></div>
+        </div>
+    </div>
+
+    <script src="/models/Post.js"></script>
+    <script>
+        class BlogPlatformView {
+            constructor() {
+                this.postModel = new PostModel();
+                this.isSubmitting = false;
+                this.setupEventListeners();
+                this.loadPosts();
+            }
+
+            setupEventListeners() {
+                document.getElementById('new-post-btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showNewPostForm();
+                });
+
+                document.getElementById('add-post-btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!this.isSubmitting) {
+                        this.addPost();
+                    }
+                });
+
+                document.getElementById('cancel-btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.hideNewPostForm();
+                });
+            }
+
+            showNewPostForm() {
+                document.getElementById('new-post-form').style.display = 'block';
+                document.getElementById('post-title').value = '';
+                document.getElementById('post-description').value = '';
+            }
+
+            hideNewPostForm() {
+                document.getElementById('new-post-form').style.display = 'none';
+            }
+
+            async addPost() {
+                if (this.isSubmitting) return;
+                
+                const title = document.getElementById('post-title').value.trim();
+                const description = document.getElementById('post-description').value.trim();
+
+                if (title && description) {
+                    this.isSubmitting = true;
+                    const result = await this.postModel.createPost(title, description);
+                    this.isSubmitting = false;
+                    
+                    if (result.success) {
+                        this.hideNewPostForm();
+                        await this.loadPosts();
+                    } else {
+                        alert('Failed to create post: ' + result.message);
+                    }
+                } else {
+                    alert('Please fill in both title and description');
+                }
+            }
+
+            async loadPosts() {
+                const posts = await this.postModel.getAllPosts();
+                this.renderPosts(posts);
+            }
+
+            renderPosts(posts) {
+                const container = document.getElementById('posts-container');
+                container.innerHTML = '';
+
+                posts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.className = 'post-item';
+                    postElement.innerHTML = `
+                        <h4>${post.title}</h4>
+                        <p>${post.description}</p>
+                        <small>Post ID: ${post._id}</small>
+                    `;
+                    container.appendChild(postElement);
+                });
+            }
+        }
+
+        // Initialize only once
+        let blogPlatform;
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!blogPlatform) {
+                blogPlatform = new BlogPlatformView();
+            }
+        });
+    </script>
+</body>
+</html>
